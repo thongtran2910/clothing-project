@@ -4,12 +4,12 @@
   display: flex;
   justify-content: space-between;
   margin: 25px 0 25px 0;
-  padding: 0 25px;
 
   .logo-container {
     height: 100%;
     width: 125px;
     padding: 10px 0 0 10px;
+    margin-left: 20px;
     border: 1px solid black;
     border-radius: 50%;
     background-color: rgba(190, 190, 190, 0.5);
