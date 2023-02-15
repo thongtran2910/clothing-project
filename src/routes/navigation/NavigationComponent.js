@@ -1,15 +1,16 @@
 import React, { useContext } from "react";
+import { useSelector } from "react-redux";
 import { Link, Outlet } from "react-router-dom";
 import { ReactComponent as SnowmanLogo } from "../../assets/snowman-logo.svg";
 import CartDropdownComponent from "../../components/cart-dropdown/CartDropdownComponent";
 import CartIconComponent from "../../components/cart-icon/CartIconComponent";
 import { CartContext } from "../../contexts/CartContext";
-import { UserContext } from "../../contexts/UserContext";
+import { selectCurrentUser } from "../../store/user/userSelector";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 import "./navigation.scss";
 
 export default function NavigationComponent() {
-  const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector(selectCurrentUser);
   const { isCartOpen } = useContext(CartContext);
 
   return (

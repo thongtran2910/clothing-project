@@ -3,10 +3,30 @@ import HomeComponent from "./routes/home/HomeComponent";
 import NavigationComponent from "./routes/navigation/NavigationComponent";
 import AuthenticationComponent from "./routes/authentication/AuthenticationComponent";
 import CheckoutComponent from "./routes/checkout/CheckoutComponent";
-import CategoriesPreviewComponent from "./routes/categories-preview/CategoriesPreviewComponent";
 import ShopComponent from "./routes/shop/ShopComponent";
 
+import { useEffect } from "react";
+import {
+  createUserDocumentFromAuth,
+  onAuthStateChangedListener,
+} from "./utils/firebase/firebase.utils";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "./store/user/userAction";
+
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      if (user) {
+        createUserDocumentFromAuth(user);
+      }
+      dispatch(setCurrentUser(user));
+    });
+
+    return unsubscribe;
+  }, []);
+
   return (
     <Routes>
       <Route path="/" element={<NavigationComponent />}>
