@@ -1,17 +1,17 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { Link, Outlet } from "react-router-dom";
 import { ReactComponent as SnowmanLogo } from "../../assets/snowman-logo.svg";
 import CartDropdownComponent from "../../components/cart-dropdown/CartDropdownComponent";
 import CartIconComponent from "../../components/cart-icon/CartIconComponent";
-import { CartContext } from "../../contexts/CartContext";
+import { selectIsCartOpen } from "../../store/cart/cartSelector";
 import { selectCurrentUser } from "../../store/user/userSelector";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 import "./navigation.scss";
 
 export default function NavigationComponent() {
   const currentUser = useSelector(selectCurrentUser);
-  const { isCartOpen } = useContext(CartContext);
+  const isCartOpen = useSelector(selectIsCartOpen);
 
   return (
     <>
@@ -24,9 +24,12 @@ export default function NavigationComponent() {
             SHOP
           </Link>
           {currentUser ? (
-            <span className="nav-link" onClick={signOutUser}>
-              SIGN OUT
-            </span>
+            <>
+              <span>Hi! {currentUser.displayName}</span>
+              <span className="nav-link" onClick={signOutUser}>
+                SIGN OUT
+              </span>
+            </>
           ) : (
             <Link className="nav-link" to="/auth">
               SIGN IN

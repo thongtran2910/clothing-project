@@ -1,12 +1,22 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import ButtonComponent from "../../components/button/ButtonComponent";
 import CheckoutItemComponent from "../../components/checkout-item/CheckoutItemComponent";
-import { CartContext } from "../../contexts/CartContext";
+import {
+  selectCartItems,
+  selectCartTotal,
+} from "../../store/cart/cartSelector";
 import "./checkout.scss";
 
 export default function CheckoutComponent() {
-  const { cartItems, cartTotal } = useContext(CartContext);
+  const navigate = useNavigate();
+  const cartItems = useSelector(selectCartItems);
+  const cartTotal = useSelector(selectCartTotal);
 
-  return (
+  const onNavigateHandler = () => navigate("/shop");
+
+  return cartItems.length > 0 ? (
     <div className="checkout-container">
       <div className="checkout-header">
         <div className="header-block">
@@ -29,6 +39,13 @@ export default function CheckoutComponent() {
         <CheckoutItemComponent key={cartItem.id} cartItem={cartItem} />
       ))}
       <span className="total">Total: ${cartTotal}</span>
+    </div>
+  ) : (
+    <div className="cart-empty">
+      <h5>Your cart is currently empty.</h5>
+      <ButtonComponent onClick={onNavigateHandler}>
+        Continue shopping
+      </ButtonComponent>
     </div>
   );
 }
