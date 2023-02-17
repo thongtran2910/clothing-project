@@ -22,8 +22,33 @@
     }
   }
   .category-preview {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     column-gap: 20px;
+
+    #overlay-btn {
+      display: none;
+    }
+    &:hover #overlay-btn {
+      display: block;
+    }
+
+    &::after {
+      position: absolute;
+      top: 0;
+      content: "";
+      background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.1) 25%,
+        rgba(0, 0, 0, 0.6) 60%
+      );
+      height: 380px;
+      width: 100%;
+      display: none;
+    }
+    &:hover::after {
+      display: block;
+    }
   }
 }

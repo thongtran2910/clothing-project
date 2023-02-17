@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import CategoryPreviewComponent from "../../components/category-preview/CategoryPreviewComponent";
+import SpinnerComponent from "../../components/spinner/SpinnerComponent";
 import { selectCategoriesMap } from "../../store/categories/categorySelector";
 
 export default function CategoriesPreviewComponent() {
@@ -8,16 +9,20 @@ export default function CategoriesPreviewComponent() {
 
   return (
     <>
-      {Object.keys(categoriesMap).map((title) => {
-        const products = categoriesMap[title];
-        return (
-          <CategoryPreviewComponent
-            key={title}
-            title={title}
-            products={products}
-          />
-        );
-      })}
+      {categoriesMap ? (
+        Object.keys(categoriesMap).map((title) => {
+          const products = categoriesMap[title];
+          return (
+            <CategoryPreviewComponent
+              key={title}
+              title={title}
+              products={products}
+            />
+          );
+        })
+      ) : (
+        <SpinnerComponent />
+      )}
     </>
   );
 }

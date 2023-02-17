@@ -1,17 +1,21 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import useModal from "../../Hook/useModal";
 import {
   addItemToCart,
   clearItemFromCart,
   removeItemFromCart,
 } from "../../store/cart/cartAction";
 import { selectCartItems } from "../../store/cart/cartSelector";
+import ModalComponent from "../modal/ModalComponent";
 import "./checkoutItem.scss";
 
 export default function CheckoutItemComponent({ cartItem }) {
   const { name, imageUrl, price, quantity } = cartItem;
   const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
+
+  const { isShowing, toggle } = useModal();
 
   const clearItemHandler = () =>
     dispatch(clearItemFromCart(cartItems, cartItem));
@@ -36,7 +40,7 @@ export default function CheckoutItemComponent({ cartItem }) {
         </div>
       </span>
       <span className="price">${price}</span>
-      <div onClick={clearItemHandler} className="remove-button">
+      <div onClick={toggle} className="remove-button">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -52,6 +56,11 @@ export default function CheckoutItemComponent({ cartItem }) {
           />
         </svg>
       </div>
+      <ModalComponent
+        onDeleteHandler={clearItemHandler}
+        isShowing={isShowing}
+        hide={toggle}
+      />
     </div>
   );
 }
