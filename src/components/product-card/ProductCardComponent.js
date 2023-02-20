@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../../store/cart/cartAction";
 import { selectCartItems } from "../../store/cart/cartSelector";
+import { selectCurrentUser } from "../../store/user/userSelector";
 import ButtonComponent from "../button/ButtonComponent";
 import SpinnerComponent from "../spinner/SpinnerComponent";
 import "./productCard.scss";
@@ -10,8 +11,12 @@ export default function ProductCardComponent({ product }) {
   const { name, price, imageUrl } = product;
   const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
+  const currentUser = useSelector(selectCurrentUser);
 
-  const addProductToCart = () => dispatch(addItemToCart(cartItems, product));
+  const addProductToCart = () =>
+    currentUser
+      ? dispatch(addItemToCart(cartItems, product))
+      : alert("You need to sign in first!");
 
   return (
     <>
