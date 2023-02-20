@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useModal from "../../Hook/useModal";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
 import ButtonComponent from "../button/ButtonComponent";
 import FormInputComponent from "../form-input/FormInputComponent";
+import ModalSuccessComponent from "../modal-success/ModalSuccessComponent";
 import "./signUpForm.scss";
 
 const defaultFormFields = {
@@ -16,9 +19,16 @@ const defaultFormFields = {
 export default function SignUpFormComponent() {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
+  const { isShowing, toggle } = useModal();
+
+  const navigate = useNavigate();
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
+  };
+
+  const onModalShowing = () => {
+    toggle();
   };
 
   const handleSubmit = async (event) => {
@@ -35,7 +45,11 @@ export default function SignUpFormComponent() {
       );
 
       await createUserDocumentFromAuth(user, { displayName });
+      onModalShowing();
       resetFormFields();
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     } catch (error) {
       switch (error.code) {
         case "auth/email-already-in-use":
@@ -97,6 +111,7 @@ export default function SignUpFormComponent() {
         />
         <ButtonComponent type="submit">Sign Up</ButtonComponent>
       </form>
+      <ModalSuccessComponent isShowing={isShowing} />
     </div>
   );
 }

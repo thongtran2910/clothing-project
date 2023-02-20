@@ -3,6 +3,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin: 25px 0 25px 0;
 
   .logo-container {
@@ -14,9 +15,17 @@
     border-radius: 50%;
     background-color: rgba(190, 190, 190, 0.5);
   }
+  .nav-brand {
+    width: 40%;
+    text-align: end;
+    font-size: 30px;
+    font-weight: 800;
+    font-family: "Bodoni Moda", serif;
+    color: rgb(61, 61, 61);
+  }
 
   .nav-links-container {
-    width: 50%;
+    width: 30%;
     height: 100%;
     display: flex;
     align-items: center;

@@ -19,6 +19,9 @@ export default function NavigationComponent() {
         <Link className="logo-container" to="/">
           <SnowmanLogo className="logo" />
         </Link>
+        <Link className="nav-brand" to="/">
+          Snowman Clothing
+        </Link>
         <div className="nav-links-container">
           <Link className="nav-link" to="/shop">
             SHOP

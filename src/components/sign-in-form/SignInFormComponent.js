@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useModal from "../../Hook/useModal";
 import {
   signInWithGooglePopup,
   signInAuthUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
 import ButtonComponent from "../button/ButtonComponent";
 import FormInputComponent from "../form-input/FormInputComponent";
+import ModalSuccessComponent from "../modal-success/ModalSuccessComponent";
 import "./signInForm.scss";
 
 const defaultFormFields = {
@@ -15,10 +17,16 @@ const defaultFormFields = {
 export default function SignInFormComponent() {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
+  const { isShowing, toggle } = useModal();
+
   const navigate = useNavigate();
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
+  };
+
+  const onModalShowing = () => {
+    toggle();
   };
 
   const signInWithGoogle = async () => {
@@ -31,7 +39,11 @@ export default function SignInFormComponent() {
 
     try {
       await signInAuthUserWithEmailAndPassword(email, password);
+      onModalShowing();
       resetFormFields();
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     } catch (error) {
       switch (error.code) {
         case "auth/wrong-password":
@@ -165,6 +177,7 @@ export default function SignInFormComponent() {
           </ButtonComponent>
         </div>
       </form>
+      <ModalSuccessComponent isShowing={isShowing} />
     </div>
   );
 }

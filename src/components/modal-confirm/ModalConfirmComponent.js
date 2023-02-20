@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import ButtonComponent from "../button/ButtonComponent";
-import "./modal.scss";
+import "./modalConfirm.scss";
 
-const ModalComponent = ({ isShowing, hide, onDeleteHandler }) =>
+const ModalConfirmComponent = ({ isShowing, hide, onDeleteHandler }) =>
   isShowing
     ? ReactDOM.createPortal(
         <>
@@ -41,4 +41,4 @@ const ModalComponent = ({ isShowing, hide, onDeleteHandler }) =>
       )
     : null;
 
-export default ModalComponent;
+export default ModalConfirmComponent;

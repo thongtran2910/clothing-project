@@ -7,7 +7,7 @@ import {
   removeItemFromCart,
 } from "../../store/cart/cartAction";
 import { selectCartItems } from "../../store/cart/cartSelector";
-import ModalComponent from "../modal/ModalComponent";
+import ModalConfirmComponent from "../modal-confirm/ModalConfirmComponent";
 import "./checkoutItem.scss";
 
 export default function CheckoutItemComponent({ cartItem }) {
@@ -56,7 +56,7 @@ export default function CheckoutItemComponent({ cartItem }) {
           />
         </svg>
       </div>
-      <ModalComponent
+      <ModalConfirmComponent
         onDeleteHandler={clearItemHandler}
         isShowing={isShowing}
         hide={toggle}
