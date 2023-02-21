@@ -1,3 +1,24 @@
+$mobile-width: 480px;
+$tablet-width: 768px;
+$desktop-width: 1024px;
+@mixin mobile {
+  @media (max-width: #{$tablet-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
+
 .navigation {
   height: 120px;
   width: 100%;
@@ -14,7 +35,26 @@
     border: 1px solid black;
     border-radius: 50%;
     background-color: rgba(190, 190, 190, 0.5);
+    @include mobile {
+      width: 80px;
+      height: 65%;
+      line-height: 100px;
+      .logo {
+        width: 90%;
+        height: 90%;
+      }
+    }
+    @include tablet {
+      width: 100px;
+      height: 85%;
+      line-height: 100px;
+      .logo {
+        width: 95%;
+        height: 85%;
+      }
+    }
   }
+
   .nav-brand {
     width: 40%;
     text-align: end;
@@ -22,18 +62,91 @@
     font-weight: 800;
     font-family: "Bodoni Moda", serif;
     color: rgb(61, 61, 61);
+    @include mobile {
+      font-size: 20px;
+      width: 20%;
+    }
+    @include tablet {
+      font-size: 25px;
+    }
   }
 
-  .nav-links-container {
-    width: 30%;
-    height: 100%;
+  .nav-toggle-container {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: flex-end;
 
-    .nav-link {
-      padding: 10px 15px;
-      cursor: pointer;
+    .nav-link-mobile {
+      display: none;
+      @include mobile {
+        border: 1px solid gray;
+        border-top: none;
+        border-right: none;
+        padding: 10px 10px;
+        position: absolute;
+        top: -50px;
+        right: -30px;
+        background-color: white;
+        width: 150px;
+        display: none;
+        animation: slide-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+      }
+      @include tablet {
+        border: 1px solid gray;
+        border-top: none;
+        border-right: none;
+        padding: 10px 10px;
+        position: absolute;
+        top: -50px;
+        right: -30px;
+        background-color: white;
+        width: 150px;
+        display: none;
+        animation: slide-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+      }
     }
+
+    .nav-toggle {
+      display: none;
+      width: 40px;
+      cursor: pointer;
+      @include mobile {
+        display: block;
+      }
+      @include tablet {
+        display: block;
+      }
+    }
+
+    .nav-links-container {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      @include mobile {
+        display: none;
+      }
+      @include tablet {
+        display: none;
+      }
+
+      .nav-link {
+        padding: 10px 15px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+@keyframes slide-bottom {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(100px);
+    opacity: 1;
   }
 }

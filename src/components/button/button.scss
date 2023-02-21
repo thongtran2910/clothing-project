@@ -1,3 +1,24 @@
+$mobile-width: 480px;
+$tablet-width: 768px;
+$desktop-width: 1024px;
+@mixin mobile {
+  @media (max-width: #{$tablet-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
+
 .button-container {
   min-width: 165px;
   width: auto;
@@ -15,6 +36,11 @@
   cursor: pointer;
   display: flex;
   justify-content: center;
+  @include mobile {
+    min-width: 130px;
+    width: 100px;
+    padding: 0 20px 0 20px;
+  }
 
   &:hover {
     background-color: white;
@@ -26,6 +52,9 @@
     background-color: #aed8fa;
     color: black;
     border: 1px solid #aed8fa;
+    @include mobile {
+      width: 60%;
+    }
 
     &:hover {
       background-color: #6891d3;
@@ -38,6 +67,10 @@
     background-color: white;
     color: black;
     border: 1px solid black;
+
+    @include mobile {
+      width: 90%;
+    }
 
     &:hover {
       background-color: black;

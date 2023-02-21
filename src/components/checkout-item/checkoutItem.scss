@@ -1,3 +1,24 @@
+$mobile-width: 480px;
+$tablet-width: 768px;
+$desktop-width: 1024px;
+@mixin mobile {
+  @media (max-width: #{$tablet-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
+
 .checkout-item-container {
   width: 100%;
   display: flex;
@@ -6,6 +27,9 @@
   padding: 15px 0;
   font-size: 20px;
   align-items: center;
+  @include mobile {
+    font-size: 13px;
+  }
   .image-container {
     width: 23%;
     padding-right: 15px;
@@ -34,5 +58,8 @@
     margin-top: 5px;
     color: #be1d1d;
     cursor: pointer;
+    @include mobile {
+      width: 30px;
+    }
   }
 }
